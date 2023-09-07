@@ -1,11 +1,13 @@
 Задание 1
 Изначально было создано 4 курьера: waitress, engineer, scientist и astro. У waitress и engineer нет заказов в статусе "Принят", у scientist 1 заказ, у astro - 2 заказа (один принятый заказ отображается как два заказа в таблице Orders).
 Вариант 1: код выводит логины только тех курьеров, у которых есть заказы в статусе "Принят" (inDelivery = true)
+
+Исправленный код:
+Я невнимательно редактировала текст в документе и пропустила, что не убрала OUTER для INNER JOIN. В консоли я запускала код именно с INNER JOIN, а не INNER OUTER JOIN, все работало.
 SELECT c.login AS login,
-       COUNT (o.id) AS "inDelivery_count"
+       COUNT (*) AS "inDelivery_count"
 FROM "Couriers" AS c
-LEFT OUTER JOIN "Orders" AS o ON c.id = o."courierId"
-WHERE o."inDelivery" IS TRUE
+INNER JOIN "Orders" AS o ON c.id = o."courierId"
 GROUP BY c.login;
 
    login   | inDelivery_count
@@ -43,4 +45,5 @@ SELECT track,
            ELSE '0'
        END AS status
 FROM "Orders";
+
 
